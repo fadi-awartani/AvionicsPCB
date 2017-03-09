@@ -8,9 +8,11 @@
 #include <avr32/io.h>
 
 
-main() {
+int main(void)
+{
     /* Replace with your application code */
-    while(1) {
+    while (1) 
+    {
     }
 }
 
