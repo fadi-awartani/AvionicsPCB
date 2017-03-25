@@ -52,12 +52,18 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
+// From module: CPU Cycle Counter
+#include <cycle_counter.h>
+
 // From module: Common build items for user board support templates
 #include <user_board.h>
 
 // From module: Compiler abstraction layer and code utilities
 #include <compiler.h>
 #include <status_codes.h>
+
+// From module: Delay routines
+#include <delay.h>
 
 // From module: FLASHC - Flash Controller
 #include <flashc.h>
@@ -74,6 +80,9 @@
 // From module: PM Power Manager- UC3 A0/A1/A3/A4/B0/B1 implementation
 #include <power_clocks_lib.h>
 #include <sleep.h>
+
+// From module: PWM - UC3 A/B implementation
+#include <pwm.h>
 
 // From module: Part identification macros
 #include <parts.h>

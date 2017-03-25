@@ -70,7 +70,7 @@ void board_init(void)
 	clockfrequencies_configure();
 	
 	// initialize hmatrix bus
-	init_hmatrix();
+	//init_hmatrix();
 	
 	//Initializing GPIO Module:
 	/*
@@ -88,7 +88,7 @@ void board_init(void)
 				   
 		--PORT B--
 		GPER: -32- 0000 0000 0000 0000
-				   0000 0011 1100 0011 -0- == 0x3C3
+				   0000 0011 1100 1111 -0- == 0x3CF
 				   
 		PMR0: -32- 0000 0000 0000 0000
 				   0000 0000 0000 0000 -0- == 0x0
@@ -103,7 +103,7 @@ void board_init(void)
 	gpio_portA->pmr0 = 0x0C002000UL;
 	gpio_portA->pmr1 = 0x1E0;
 	
-	gpio_portB->gper = 0x3C3;
+	gpio_portB->gper = 0x3CF;
 	gpio_portB->pmr0 = 0;
 	gpio_portB->pmr1 = 0xC00;
 }
