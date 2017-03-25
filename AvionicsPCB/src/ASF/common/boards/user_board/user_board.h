@@ -23,7 +23,8 @@
 // Uncomment and set correct values if external oscillator is used.
 
 // External oscillator frequency
-//#define BOARD_XOSC_HZ          8000000
+#define BOARD_XOSC_HZ			12000000UL
+#define FOSC0					12000000UL
 
 // External oscillator type.
 //!< External clock signal
@@ -34,7 +35,8 @@
 //#define BOARD_XOSC_TYPE        XOSC_TYPE_XTAL
 
 // External oscillator startup time
-//#define BOARD_XOSC_STARTUP_US  500000
+#define BOARD_XOSC_STARTUP_US  500000
+#define OSC0_STARTUP AVR32_PM_OSCCTRL0_STARTUP_4096_RCOSC
 
 
 #endif // USER_BOARD_H

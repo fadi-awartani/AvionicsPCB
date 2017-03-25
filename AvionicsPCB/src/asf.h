@@ -71,6 +71,10 @@
 // From module: Interrupt management - UC3 implementation
 #include <interrupt.h>
 
+// From module: PM Power Manager- UC3 A0/A1/A3/A4/B0/B1 implementation
+#include <power_clocks_lib.h>
+#include <sleep.h>
+
 // From module: Part identification macros
 #include <parts.h>
 
