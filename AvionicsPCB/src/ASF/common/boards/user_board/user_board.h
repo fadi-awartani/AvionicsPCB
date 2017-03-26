@@ -25,6 +25,7 @@
 // External oscillator frequency
 #define BOARD_XOSC_HZ			12000000UL
 #define FOSC0					12000000UL
+#define BOARD_FREQ_HZ			24000000UL
 
 // External oscillator type.
 //!< External clock signal
@@ -65,5 +66,17 @@
 #define RED_LED_PWM				2
 #define BLUE_LED_PWM			6
 #define BUZZER_PWM				2
+
+// USARTs
+#define RFD_USART				AVR32_USART0
+#define IRIDIUM_USART			AVR32_USART1
+#define GPS_USART				AVR32_USART2
+
+// I2C Configuration
+#define I2C_SPEED				48000
+#define ALTIMETER_I2C_ADDR		0x77
+#define IMU_I2C_ADDR			0b1101011
+#define NANOPI_I2C_ADDR			0x0 //PUT IN CORRECT ADDRESS
+#define PAYLOAD_I2C_ADDR		0x0 //PUT IN CORRECT ADDRESS
 
 #endif // USER_BOARD_H

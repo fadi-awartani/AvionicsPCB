@@ -1,7 +1,10 @@
-/**
+/*****************************************************************************
+ *
  * \file
  *
- * \brief Chip-specific system clock manager configuration
+ * \brief SD/MMC configuration file.
+ *
+ * This file contains the possible external configuration of the SD/MMC.
  *
  * Copyright (c) 2014-2015 Atmel Corporation. All rights reserved.
  *
@@ -39,45 +42,46 @@
  *
  * \asf_license_stop
  *
- */
+ ******************************************************************************/
 /*
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
-#ifndef CONF_CLOCK_H_INCLUDED
-#define CONF_CLOCK_H_INCLUDED
+#ifndef _CONF_SD_MMC_SPI_H_
+#define _CONF_SD_MMC_SPI_H_
 
-// ===== System Clock Source Options
-//#define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_RCSYS
-//#define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_OSC0
-#define CONFIG_SYSCLK_SOURCE          SYSCLK_SRC_PLL0
+#include "board.h"
+#include "conf_access.h"
 
-// ===== PLL0 Options
-#define CONFIG_PLL0_SOURCE            PLL_SRC_OSC0
-//#define CONFIG_PLL0_SOURCE          PLL_SRC_OSC1
-#define CONFIG_PLL0_MUL               8 /* Fpll = (Fclk * PLL_mul) / PLL_div */
-#define CONFIG_PLL0_DIV               2 /* Fpll = (Fclk * PLL_mul) / PLL_div */
+#if SD_MMC_SPI_MEM == DISABLE
+  #error conf_sd_mmc_spi.h is #included although SD_MMC_SPI_MEM is disabled
+#endif
 
-// ===== PLL1 Options
-//#define CONFIG_PLL1_SOURCE          PLL_SRC_OSC0
-//#define CONFIG_PLL1_SOURCE          PLL_SRC_OSC1
-//#define CONFIG_PLL1_MUL             8 /* Fpll = (Fclk * PLL_mul) / PLL_div */
-//#define CONFIG_PLL1_DIV             2 /* Fpll = (Fclk * PLL_mul) / PLL_div */
+#include "sd_mmc_spi.h"
 
-// ===== System Clock Bus Division Options
-#define CONFIG_SYSCLK_CPU_DIV         1 /* Fcpu = Fsys/(2 ^ CPU_div) */
-#define CONFIG_SYSCLK_PBA_DIV         1 /* Fpba = Fsys/(2 ^ PBA_div) */
-#define CONFIG_SYSCLK_PBB_DIV         1 /* Fpbb = Fsys/(2 ^ PBB_div) */
 
-// ===== Peripheral Clock Management Options
-//#define CONFIG_SYSCLK_INIT_CPUMASK  ((1 << SYSCLK_SYSTIMER) | (1 << SYSCLK_OCD))
-//#define CONFIG_SYSCLK_INIT_PBAMASK  (1 << SYSCLK_USART0)
-//#define CONFIG_SYSCLK_INIT_PBBMASK  (1 << SYSCLK_HMATRIX)
-//#define CONFIG_SYSCLK_INIT_HSBMASK  (1 << SYSCLK_MDMA_HSB)
+//_____ D E F I N I T I O N S ______________________________________________
 
-// ===== USB Clock Source Options
-//#define CONFIG_USBCLK_SOURCE        USBCLK_SRC_OSC0
-#define CONFIG_USBCLK_SOURCE          USBCLK_SRC_PLL0
-//#define CONFIG_USBCLK_SOURCE        USBCLK_SRC_PLL1
-#define CONFIG_USBCLK_DIV             0 /* Fusb = Fsys/(2 ^ USB_div) */
+//! SPI master speed in Hz.
+#define SD_MMC_SPI_MASTER_SPEED     12000000
 
-#endif /* CONF_CLOCK_H_INCLUDED */
+//! Number of bits in each SPI transfer.
+#define SD_MMC_SPI_BITS             8
+
+
+#if !defined(SD_MMC_SPI)
+//! Set SD_MMC_SPI, default SPI register address if this is a user board
+#warning "Using a default SD_MMC_SPI define value. Edit the conf_sd_mmc_spi.h file to modify that define value according to the current board."
+#if (UC3L || UC3B || UC3D)
+#define SD_MMC_SPI                 (&AVR32_SPI)
+#else
+#define SD_MMC_SPI                 (&AVR32_SPI0)
+#endif
+#endif
+
+#if !defined(SD_MMC_SPI_NPCS)
+//! Set SD_MMC_SPI_NPCS, default chip select if this is a user board
+#warning "Using a default SD_MMC_SPI_NPCS define value. Edit the conf_sd_mmc_spi.h file to modify that define value according to the current board."
+#define SD_MMC_SPI_NPCS            0
+#endif
+
+#endif  // _CONF_SD_MMC_SPI_H_

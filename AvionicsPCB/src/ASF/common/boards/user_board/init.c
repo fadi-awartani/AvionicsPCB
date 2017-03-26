@@ -11,7 +11,6 @@
 #include <asf.h>
 #include <board.h>
 #include <conf_board.h>
-#include "pm.h"
 
 static void clockfrequencies_configure(void)
 {
@@ -63,11 +62,11 @@ static void init_hmatrix(void)
 
 void board_init(void)
 {
-	/* This function is meant to contain board-specific initialization code
-	 * for, e.g., the I/O pins. The initialization can rely on application-
-	 * specific board configuration, found in conf_board.h.
-	 */
 	clockfrequencies_configure();
+// 	pm_pll_set_option(&AVR32_PM, 0, // pll.
+// 	1,  // pll_freq.
+// 	1,  // pll_div2.
+// 	0); // pll_wbwdisable.
 	
 	// initialize hmatrix bus
 	//init_hmatrix();
@@ -106,4 +105,24 @@ void board_init(void)
 	gpio_portB->gper = 0x3CF;
 	gpio_portB->pmr0 = 0;
 	gpio_portB->pmr1 = 0xC00;
+	
+	// Initialize and enable interrupt
+	irq_initialize_vectors();
+	cpu_irq_enable();
+	
+	/* TWI == I2C
+	twi_options_t opt;
+	opt.pba_hz = BOARD_FREQ_HZ;
+	opt.speed = I2C_SPEED;
+	opt.chip = ALTIMETER_I2C_ADDR;
+	
+	// initialize TWI driver with options
+	int status = twi_master_init(&AVR32_TWI, &opt);
+	// check init result
+	if (status == TWI_SUCCESS){
+		
+	}*/
+
+	// Start USB stack to authorize VBus monitoring
+	//udc_start();
 }
